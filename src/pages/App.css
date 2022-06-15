@@ -1,0 +1,82 @@
+/* 회원가입 및 로그인 페이지 CSS */
+.SignupBox {
+  box-sizing: border-box;
+  width: 95%;
+  max-width: 350px;
+  height: auto;
+  background: #ffe605;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 39px;
+
+  padding: 0.1%;
+  margin: 5% auto;
+  text-align: center;
+}
+.Input1 {
+  width: 100%;
+  max-width: 200px;
+  height: 45px;
+  border: none;
+  margin: 2%;
+}
+
+.Input {
+  width: 100%;
+  max-width: 250px;
+  height: 45px;
+  border: none;
+  margin: 2%;
+}
+
+.CheckButton {
+  border: none;
+  width: 100%;
+  max-width: 45px;
+  height: 45px;
+  background: #ff0000;
+  color: white;
+  margin-top: 2%;
+}
+
+.SignupButton {
+  border: none;
+  width: 100%;
+  max-width: 100px;
+  height: 35px;
+  color: white;
+  background: #ff0000;
+  margin-top: 2%;
+}
+
+/* 메인 CSS */
+.MainOutter {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.MainImage {
+  width: 90%;
+  max-width: 1000px;
+  height: 400px;
+  background-color: antiquewhite;
+  margin: 2%;
+  display: flex;
+  justify-content: center;
+}
+.SearchBox {
+  width: 90%;
+  max-width: 1000px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  gap: 1%;
+  margin-bottom: 2%;
+}
+.SearchInput {
+  width: 90%;
+  max-width: 1000px;
+  height: 30px;
+  border: none;
+  border-bottom: 1px solid rgb(33, 56, 110);
+}

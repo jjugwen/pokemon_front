@@ -1,70 +1,59 @@
-# Getting Started with Create React App
+# 🎁 포켓몬 띠부띠부
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+포켓몬빵을 사 먹지 못한 사람들의 한을 풀어주기 위한 사이트
 
-## Available Scripts
+제작 기간 : 2022.06.19 ~ 2022.06.16 (7일)
 
-In the project directory, you can run:
+# :information_desk_person: 팀원 소개
 
-### `yarn start`
+🦌 : **BACK-END (3명)**  <a href="https://github.com/KorOnechild/Proj.DDibu-backend">back-end github</a>
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+ + 김민주 : 로그인, 회원가입, 인증(JWT) 구현
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+ + 김승찬 : 데이터베이스 크롤링, 검색 CRUD, 메인 페이지, 디테일 페이지 구현
 
-### `yarn test`
+ + 심규홍 : 댓글 CRUD, 좋아요 기능 구현
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+🎅 : **FRONT-END (1명)** 
 
-### `yarn build`
+ + 이영주 : 메인 페이지, 헤더, 로그인, 회원가입 등 구현
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+# :dizzy: 핵심기능
+> 1) 회원가입 / 로그인
+ + JWT 인증 방식으로 로그인 구현
+ + ID 중복확인, 각 필드별 유효성체크
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+> 2) 포켓몬 열람
+ + 포켓몬 목록
+ + 포켓몬 상세 조회
+ + 포켓몬 좋아요
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+> 3) 댓글 CRUD
+ +댓글 등록, 댓글 수정, 댓글 삭제
 
-### `yarn eject`
+# :tv: 데모영상
+<img src="https://img.shields.io/badge/YouTube-FF0000?style=flat&logo=YouTube&logoColor=white"/> https://youtu.be/JPpEf-CZooE
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+# :computer: 기술 스택 
+#### Server 
+  <img src="https://img.shields.io/badge/aws-232F3E?style=for-the-badge&logo=AmazonAWS&logoColor=white">
+  
+#### Framework
+  <img src="https://img.shields.io/badge/Spring-6DB33F?style=for-the-badge&logo=Spring&logoColor=white"><img src="https://img.shields.io/badge/Springboot-6DB33F?style=for-the-badge&logo=Springboot&logoColor=white">
+  
+#### Language
+  <img src="https://img.shields.io/badge/JAVA-007396?style=for-the-badge&logo=java&logoColor=white">
+  
+#### Database
+  <img src="https://img.shields.io/badge/mysql-4479A1?style=for-the-badge&logo=mysql&logoColor=white">
+  
+#### Tool
+  <img src="https://img.shields.io/badge/gradle-02303A?style=for-the-badge&logo=gradle&logoColor=white"><img src="https://img.shields.io/badge/Git-00000?style=for-the-badge&logo=Git&logoColor=F05032]"/><img src="https://img.shields.io/badge/Github-181717?style=for-the-badge&logo=Github&logoColor=white]"/>
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `yarn build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+# :key: 트러블 슈팅
+> 프론트엔드
+ + 회원가입 시 유효성 검사에 따른 글자 변환 CSS 변경. => 화살표 함수를 두 번 이용하여 구현
+  <Check>{emailcheck ? "" : "*아이디는 이메일 형식입니다"}</Check>
+  <Check2>{emailcheck ? "사용가능한 형식입니다" : ""}</Check2>
+ + 프론트 브랜치 합칠 때 => 패키지 설치 충돌 => 패키지 설치 => 해결
+ + 백엔드와 합칠 때 => pw vs password 식별자 충돌 => pw로 통일 => 해결.

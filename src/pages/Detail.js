@@ -9,12 +9,14 @@ const Detail = () => {
   //사용자 로그인 시 받은 토큰이 있는지 확인하는 함수
   const userCookie = getCookie("is_login");
   // console.log(userCookie);
+  // console.log(userCookie ? "have" : "none");
 
   const params = useParams();
   const detail_id = params.id;
   const pokemonId = Number(params.id) + 1;
   const [data, setData] = useState([]);
   const [comments, setComment] = useState([]);
+  // console.log(comments);
 
   const [info, setInfo] = useState({
     id: 0,
@@ -29,12 +31,14 @@ const Detail = () => {
   useEffect(() => {
     axios.get(`http://13.124.220.124/detail/${pokemonId}`).then((response) => {
       setData(response.data);
-      // console.log(pokemonId);
-    });
-    axios.get(`http://13.124.220.124/comment/${pokemonId}`).then((response) => {
-      // setComment(response.data);
       // console.log(response);
     });
+    axios
+      .get(`http://13.124.220.124/viewcomments/${pokemonId}`)
+      .then((response) => {
+        setComment(response.data);
+        // console.log(response);
+      });
   }, []);
 
   const inputholder = `${data.name} 씨를 좋아하나요?`;
@@ -73,12 +77,8 @@ const Detail = () => {
               }}
             >
               {/*좋아요 기능 구현*/}
-              {/* if(userCookie){
-              axios
-              .get(`http://13.124.220.124/like/${pokemonId}`, {
-                
-            } */}
-              {/*좋아요 누르기 전*/}
+
+              {/* /*좋아요 누르기 전*/}
               {/* <button
                 style={{
                   background: "white",
@@ -92,7 +92,7 @@ const Detail = () => {
                 {data?.likeByMe && "[ME]"} ♡
               </button> */}
 
-              {/*좋아요 누른 후*/}
+              {/* /*좋아요 누른 후*/}
               <button
                 style={{
                   background: "red",
@@ -144,15 +144,19 @@ const Detail = () => {
           <Input placeholder={inputholder} type="text" ref={input_text} />
           <Button
             onClick={() => {
-              axios
-                .post(`http://13.124.220.124/comment/${pokemonId}`, {
-                  comment: input_text.current.value,
-                  postId: params.id,
-                })
-                .then((response) => {
-                  console.log(response);
-                  setComment((current) => [...current, response.data]);
-                });
+              if (!userCookie) {
+                alert("로그인 해주세요!");
+              } else {
+                axios
+                  .post(`http://13.124.220.124/comment/${pokemonId}`, {
+                    comment: input_text.current.value,
+                    postId: params.id,
+                  })
+                  .then((response) => {
+                    console.log(response);
+                    setComment((current) => [...current, response.data]);
+                  });
+              }
             }}
           >
             댓글 남기기
@@ -169,7 +173,7 @@ const Detail = () => {
                   }}
                   key={index}
                 >
-                  <div>
+                  <div style={{ marginLeft: "2%" }}>
                     <TitleP>
                       <span>{comment.nickname}</span>
                       <span> | </span>
@@ -179,7 +183,7 @@ const Detail = () => {
 
                   <div>
                     <CommentP>
-                      <span>{comment.comment}</span>
+                      <span>{comment.comments}</span>
                     </CommentP>
                   </div>
                   <div
@@ -191,35 +195,49 @@ const Detail = () => {
                   >
                     <Button2
                       onClick={() => {
-                        axios
-                          .patch(`http://13.124.220.124/comment/${pokemonId}`, {
-                            comment: input_text.current.value,
-                          })
-                          .then((response) => {
-                            setComment((current) =>
-                              current.map((value) => {
-                                if (comment.id === value.id) {
-                                  value.comment = input_text.current.value;
-                                }
-                                return value;
-                              })
-                            );
-                          });
+                        if (userCookie) {
+                          console.log("회원 클릭");
+                          axios
+                            .patch(
+                              `http://13.124.220.124/comment/${pokemonId}`,
+                              {
+                                comment: input_text.current.value,
+                              }
+                            )
+                            .then((response) => {
+                              setComment((current) =>
+                                current.map((value) => {
+                                  if (comment.id === value.id) {
+                                    value.comment = input_text.current.value;
+                                  }
+                                  return value;
+                                })
+                              );
+                            });
+                        } else {
+                          alert("로그인 해주세요!");
+                        }
                       }}
                     >
                       수정
                     </Button2>
                     <Button2
                       onClick={() => {
-                        axios
-                          .delete(`http://13.124.220.124/comment/${pokemonId}`)
-                          .then((response) => {
-                            setComment((current) =>
-                              current.filter((value) => {
-                                return comment.id !== value.id;
-                              })
-                            );
-                          });
+                        if (userCookie) {
+                          axios
+                            .delete(
+                              `http://13.124.220.124/comment/${pokemonId}`
+                            )
+                            .then((response) => {
+                              setComment((current) =>
+                                current.filter((value) => {
+                                  return comment.id !== value.id;
+                                })
+                              );
+                            });
+                        } else {
+                          alert("로그인 해주세요!");
+                        }
                       }}
                     >
                       삭제
@@ -245,7 +263,7 @@ const ContainerImage = styled.div`
   margin-bottom: 30px;
   width: 100%;
   max-width: 600px;
-  height: 400px;
+  height: auto;
   display: flex;
   jusfify-content: center;
 `;
@@ -266,12 +284,15 @@ const Div = styled.div`
 const InfoDiv = styled.div`
   margin-left: 10px;
   margin-top: 50px;
-  width: 300px;
+  width: 100%;
+  max-width: 600px;
   padding-right: 5%;
 `;
 
 const InfoBox = styled.div`
   font-size: 14px;
+  width: 100%;
+  max-width: 240px;
 `;
 
 const Info = styled.div`
@@ -333,6 +354,7 @@ const Ul = styled.ul`
 `;
 
 const TitleP = styled.p`
+  margin-left: 2%
   display: grid;
   grid-template-columns: 100px 20px 100px;
   font-size: 13px;

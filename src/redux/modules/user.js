@@ -18,7 +18,7 @@ export const signupDB = (userinfo) => {
           dispatch(userCREATE(request.data));
           alert("회원가입 성공");
           // const navigate = useNavigate();
-          // navigate("/");
+          // navigate("/"); //안됨..
         });
     } catch (error) {
       console.log("failed", error);
@@ -26,6 +26,7 @@ export const signupDB = (userinfo) => {
     }
   };
 };
+
 //ID(email) 중복 확인 emailcheckDB
 export const emailcheckDB = (email) => {
   return function (dispatch) {
@@ -69,15 +70,16 @@ export const nicknamecheckDB = (nickname) => {
 
 //회원 찾기 (로그인) 서버에 email(id), pw를 제공(request)하고 유저 정보와 토큰을 받아 저장.
 export const loginDB = (loginUserinfo) => {
-  return async function (dispatch) {
-    await axios
+  return function (dispatch) {
+    axios
       .post("http://13.124.220.124/user/login", loginUserinfo)
 
       .then((response) => {
         // console.log(response);
         const accessToken = response.data.token;
-        // console.log(accessToken);
+        console.log(response);
         setCookie("is_login", `${accessToken}`);
+        localStorage.setItem("refreshToken", response.data["refreshToken"]);
         const result = response.data.result;
         // 저장된 토큰으로 login 여부 확인
         if (result) {

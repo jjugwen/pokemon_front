@@ -1,6 +1,8 @@
 //src > components > Header.js
 //헤더(상단) 컴포넌트 : 로그인 상태 전/후 보이는 버튼 달라짐.
 
+//issue 1: 로그인하고 로그아웃 버튼 누르면 쿠키, 토큰 없어지는데 헤더에 로그아웃 디자인이 남음.
+
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
@@ -12,15 +14,16 @@ const Header = () => {
   const navigate = useNavigate();
   const user = useSelector((state) => state.user);
   // console.log(user.list.is_login);
-  //로그인했을 때 다른 헤더 보이기
+
   const [is_login, setIsLogin] = useState(false);
 
   //로그아웃 클릭 시 쿠키 삭제
   const deleteCookie = (is_login) => {
     document.cookie = "is_login" + "=; expires=Thu, 01 Jan 1999 00:00:10 GMT;";
     setIsLogin(false);
-    window.location.reload();
+    localStorage.removeItem("refreshToken");
   };
+
   //로그인 check 실행
   useEffect(() => {
     if (user.list.is_login) {
@@ -151,7 +154,9 @@ const Header = () => {
             onClick={() => {
               console.log("로그아웃");
               deleteCookie();
-              // window.location.reload();
+              setTimeout(() => {
+                navigate("/");
+              }, 1000);
             }}
           >
             로그아웃
